@@ -14,15 +14,20 @@ const onGenerateSubmit = (e) => {
     return alert("Please Enter a URL");
   } else {
     showSpinner();
+
     setTimeout(() => {
       hideSpinner();
       if (!url.includes("http://" || "https://")) {
         const newUrl = https.concat(url);
-
         generateQRCode(newUrl, size);
       } else {
         generateQRCode(url, size);
       }
+
+      setTimeout(() => {
+        const saveUrl = qr.querySelector("img").src;
+        createSaveBtn(saveUrl);
+      }, 50);
     }, 1000);
   }
 };
@@ -45,6 +50,18 @@ const hideSpinner = () => {
 
 const clearUI = () => {
   qr.innerHTML = "";
+};
+
+const createSaveBtn = (saveUrl) => {
+  const link = document.createElement("a");
+
+  link.id = "save-link";
+  link.classList =
+    "bg-red-500 hover:bg-red-700 text-white font-bold py-2 rounded m-auto my-5 w-1/3";
+  link.href = saveUrl;
+  link.download = "qrcode";
+  link.innerHTML = "Save Image";
+  document.getElementById("generated").appendChild(link);
 };
 
 hideSpinner();
