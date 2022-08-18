@@ -50,12 +50,14 @@ const hideSpinner = () => {
 
 const clearUI = () => {
   qr.innerHTML = "";
+  const saveBtn = document.getElementById("save");
+  if (saveBtn) saveBtn.remove();
 };
 
 const createSaveBtn = (saveUrl) => {
   const link = document.createElement("a");
 
-  link.id = "save-link";
+  link.id = "save";
   link.classList =
     "bg-red-500 hover:bg-red-700 text-white font-bold py-2 rounded m-auto my-5 w-1/3";
   link.href = saveUrl;
